@@ -29,47 +29,6 @@ class MyDOM {
         return $this->xpath->query("//*[contains(concat(' ', @class, ' '), ' $class ')]");
     }
 
-    public static function xmlentities($str) { // for safe appendXML
-        $str = html_entity_decode(
-                   strtr($str,
-                       array(
-                           '&quot;' => '&amp;quot;',
-                           '&apos;' => '&amp;#039;',
-                           '&#039;' => '&amp;#039;',
-                           '&lt;'   => '&amp;lt;',
-                           '&gt;'   => '&amp;gt;',
-                           '&amp;'  => '&amp;amp;'
-                       )
-                   ), ENT_NOQUOTES, 'UTF-8');
-        $str = str_replace('?', '&#63;', $str);
-        $iso = utf8_decode($str);
-        static $chars = array();
-        if (!$chars) {
-            for ($i = 128; $i < 256; $i++) {
-                $chars[] = chr($i);
-            }
-        }
-        $ascii = str_replace($chars, '?', $iso);
-        $a     = explode('?', $ascii);
-        array_pop($a);
-        $data = null;
-        foreach ($a as $pre) {
-            $current   = substr($str, strlen($pre));
-            $firstByte = str_pad(decbin(ord($current[0])), 8, '0', STR_PAD_LEFT);
-            $pos       = strpos($firstByte, '0');
-            $len       = $pos ? $pos : 1;
-            $u         = substr($firstByte, $pos + 1);
-            for ($i = 1; $i < $len; $i++) {
-                $nextByte = decbin(ord($current[$i]));
-                $u       .= substr($nextByte, strpos($nextByte, '0') + 1);
-            }
-            $data .= $pre.'&#'.bindec($u).';';
-            $str   = substr($current, $len);
-        }
-        $data .= $str;
-        return str_replace('&#63;', '?', $data);
-    }
-
     public function find($item, $n = 0) {
         switch ($item[0]) {
             case '#':
@@ -94,7 +53,7 @@ class MyDOM {
             }
             else{
                 $fragment = $this->dom->createDocumentFragment();
-                $fragment->appendXML(self::xmlentities($content));
+                $fragment->appendXML('<![CDATA['.$content.']]>');
             }
             $element = $this->element[1];
             $element->parentNode->replaceChild($fragment, $element);
@@ -110,7 +69,7 @@ class MyDOM {
             }
             else {
                 $fragment = $this->dom->createDocumentFragment();
-                $fragment->appendXML(self::xmlentities($content));
+                $fragment->appendXML('<![CDATA['.$content.']]>');
             }
             $element = $this->element[1];
             $element->insertBefore($fragment, $element->firstChild);
@@ -126,7 +85,7 @@ class MyDOM {
             }
             else {
                 $fragment = $this->dom->createDocumentFragment();
-                $fragment->appendXML(self::xmlentities($content));
+                $fragment->appendXML('<![CDATA['.$content.']]>');
             }
             $element = $this->element[1];
             $element->appendChild($fragment);
@@ -142,7 +101,7 @@ class MyDOM {
             }
             else {
                 $fragment = $this->dom->createDocumentFragment();
-                $fragment->appendXML(self::xmlentities($content));
+                $fragment->appendXML('<![CDATA['.$content.']]>');
             }
             $element = $this->element[1];
             $element->parentNode->insertBefore($fragment, $element);
@@ -158,7 +117,7 @@ class MyDOM {
             }
             else {
                 $fragment = $this->dom->createDocumentFragment();
-                $fragment->appendXML(self::xmlentities($content));
+                $fragment->appendXML('<![CDATA['.$content.']]>');
             }
             $element = $this->element[1];
             $element->parentNode->insertBefore($fragment, $element->nextSibling);
@@ -298,8 +257,8 @@ class MyDOM {
 
     public function put($data) {
         if ($this->element[1]) {
-            static $n;
-            $n += 1;
+            static $n = 0;
+            $n++;
             $dup      = $this->element[1]->cloneNode(true);
             $elements = $dup->getElementsByTagName('*');
             $i        = $elements->length;
@@ -316,7 +275,7 @@ class MyDOM {
                     else {
                         $element->setAttribute('id', $attribute.$n);
                         $fragment = $this->dom->createDocumentFragment();
-                        $fragment->appendXML(self::xmlentities($data[$attribute]));
+                        $fragment->appendXML('<![CDATA['.$data[$attribute].']]>');
                         $node = $element->cloneNode();
                         $node->appendChild($fragment);
                         $element->parentNode->replaceChild($node, $element);
