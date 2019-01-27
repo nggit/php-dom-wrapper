@@ -1,0 +1,20 @@
+{
+    "name": "nggit/php-dom-template",
+    "description": "HTML Templating and Extraction Using PHP DOM",
+    "homepage": "https://github.com/nggit/php-dom-template",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "nggit",
+            "email": "test@anggit.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "psr-4": {"Nggit\\PHPDOMTemplate\\": "src/"}
+    }
+}
