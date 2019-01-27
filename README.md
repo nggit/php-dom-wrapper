@@ -53,7 +53,7 @@
             // $var = $html->output();
             break;
         case 'page-1':
-### Put data to #item (id="item"), data will be assigned to child elements that have ids related to array keys
+### Put data to #item (id="item"), data will be assigned to its child elements that have ids related to array keys
             $data                   = array();
             $data[0]['title']       = 'The Flash';
             /* null or undefined will cause the removal of the corresponding elements

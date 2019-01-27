@@ -51,7 +51,7 @@ class HTML
         return $this;
     }
 
-    public function replace($content = null) // outer
+    public function replace($content) // outer
     {
         if ($this->element[1]) {
             if (is_object($content)) {
