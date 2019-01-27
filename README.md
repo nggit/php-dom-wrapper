@@ -56,7 +56,8 @@
 ### Put data to #item (id="item"), data will be assigned to child elements that have ids related to array keys
             $data                   = array();
             $data[0]['title']       = 'The Flash';
-            /* null or undefined will cause the removal of the corresponding elements if they only have 3 children or less
+            /* null or undefined will cause the removal of the corresponding elements
+               if they only have 3 children or less
             $data[0]['description'] = null;
             $data[0]['content']     = null;
             */
@@ -65,8 +66,10 @@
             $data[1]['content']     = "My name is Barry Allen and I'm the fastest man alive.";
             $data[2]['title']       = 'Clifford Devoe';
             $data[2]['description'] = 'The Thinker, Meta Human';
-            $data[2]['content']     = "You could gather every genius on every planet, and you still couldn't out-think me.<br />
-                                       You may be the <i>fastest man</i> alive, Allen. I'm the <i>fastest mind</i>.";
+            $data[2]['content']     = "You could gather every genius on every planet,
+                                       and you still couldn't out-think me.<br />
+                                       You may be the <i>fastest man</i> alive, Allen.
+                                       I'm the <i>fastest mind</i>.";
             $data[3]['title']       = 'Eobard Thawne';
             $data[3]['description'] = 'Reverse Flash, Meta Human (Speedster)';
             $data[3]['content']     = 'I told you this before. I am always one step ahead, Flash.';
@@ -80,7 +83,8 @@
 ### Set inner element with text()
             $html->find('title')->text('Page 1');
 ### Set inner element with html()
-            $html->find('.header')->html('<div class="content"><h1>Page 1</h1><p>You are viewing Page 1</p></div>');
+            $html->find('.header')->html('<div class="content"><h1>Page 1</h1>
+                                          <p>You are viewing Page 1</p></div>');
             $html->find('#navpage')->attr('href', '?page-2');
             $html->render();
             break;
@@ -98,7 +102,8 @@
             // Or call remove() later individually:
             // $html->remove();
 ### Prepending and Appending elements
-            $html->find('.main')->prepend('<div class="item"><h3>Before Item</h3></div>')->append('<div class="item"><h3>After Item</h3></div>');
+            $html->find('.main')->prepend('<div class="item"><h3>Before Item</h3></div>')
+                                ->append('<div class="item"><h3>After Item</h3></div>');
             $html->find('#navpage')->attr('href', '?page-4');
             $html->render();
             break;
@@ -111,7 +116,9 @@
             $header = $html->find('.header')->text();
 ### Get the inner HTML
             $nav = $html->find('.nav')->html();
-            echo '$class contains: ' . $class . '<br />$header contains: ' . $header . '<br />$nav contains: ' . $nav;
+            echo '$class contains: ' . $class . '<br />
+                  $header contains: ' . $header . '<br />
+                  $nav contains: ' . $nav;
             break;
     }
     exit;
