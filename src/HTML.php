@@ -71,7 +71,7 @@ class HTML
     {
         if ($this->element[1]) {
             if (is_null($content)) {
-                $str   = $this->get($this->element[1]);
+                $str   = $this->get();
                 $start = strpos($str, '>') + 1;
                 return substr($str, $start, strrpos($str, '<') - $start);
             }
@@ -342,8 +342,9 @@ class HTML
         echo $this->dom->saveHTML();
     }
 
-    protected function get($element)
+    public function get($element = null) // outer
     {
+        is_object($element) or $element = $this->element[1];
         return version_compare(PHP_VERSION, '5.3.6', '>=') ? $this->dom->saveHTML($element) : $this->dom->saveXML($element);
     }
 }

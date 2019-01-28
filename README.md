@@ -62,16 +62,16 @@
             $data[0]['content']     = null;
             */
             $data[1]['title']       = 'Barry Allen';
-            $data[1]['description'] = 'Flash, Meta Human (Speedster)';
+            $data[1]['description'] = 'Flash, Metahuman (Speedster)';
             $data[1]['content']     = "My name is Barry Allen and I'm the fastest man alive.";
             $data[2]['title']       = 'Clifford Devoe';
-            $data[2]['description'] = 'The Thinker, Meta Human';
+            $data[2]['description'] = 'The Thinker, Metahuman';
             $data[2]['content']     = "You could gather every genius on every planet,
                                        and you still couldn't out-think me.<br />
                                        You may be the <i>fastest man</i> alive, Allen.
                                        I'm the <i>fastest mind</i>.";
             $data[3]['title']       = 'Eobard Thawne';
-            $data[3]['description'] = 'Reverse Flash, Meta Human (Speedster)';
+            $data[3]['description'] = 'Reverse Flash, Metahuman (Speedster)';
             $data[3]['content']     = 'I told you this before. I am always one step ahead, Flash.';
             /* Begin put data with find() */
             $html->find('#item');
