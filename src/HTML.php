@@ -1,7 +1,7 @@
 <?php
 
-# MyDOM class
-# PHP template engine using DOM
+# HTML class
+# HTML Templating and Extraction Using PHP DOM
 # (c) 20161228 nggit
 
 namespace Nggit\PHPDOMTemplate;
