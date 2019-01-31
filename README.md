@@ -116,6 +116,12 @@
             $header = $html->find('.header')->text();
 ### Get the inner HTML
             $nav = $html->find('.nav')->html();
+## Advanced
+            // Find all p (Extraction)
+            // In Templating, this kind of method will also work
+            foreach ($html->find("//p", null) as $p) {
+                echo $html->element($p)->html() . '<br />';
+            }
             echo '$class contains: ' . $class . '<br />
                   $header contains: ' . $header . '<br />
                   $nav contains: ' . $nav;

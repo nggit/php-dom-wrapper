@@ -40,9 +40,21 @@ class HTML
                 isset($this->node[$item][$n]) or $this->node[$item][$n] = $this->getElementById(ltrim($item, '#'));
                 break;
             case '.':
+                if (is_null($n)) {
+                    return $this->getElementsByClassName(ltrim($item, '.'));
+                }
                 isset($this->node[$item][$n]) or $this->node[$item][$n] = $this->getElementsByClassName(ltrim($item, '.'))->item($n);
                 break;
+            case '/':
+                if (is_null($n)) {
+                    return $this->xpath->query($item);
+                }
+                isset($this->node[$item][$n]) or $this->node[$item][$n] = $this->xpath->query($item)->item($n);
+                break;
             default:
+                if (is_null($n)) {
+                    return $this->dom->getElementsByTagName($item);
+                }
                 isset($this->node[$item][$n]) or $this->node[$item][$n] = $this->dom->getElementsByTagName($item)->item($n);
         }
         $this->element[0] = $item;
@@ -51,10 +63,18 @@ class HTML
         return $this;
     }
 
+    public function element($element) {
+        if ($element instanceof \DOMElement) {
+            $this->node[1][0] = null;
+            $this->element    = array(1, $element, 0);
+        }
+        return $this;
+    }
+
     public function replace($content) // outer
     {
         if ($this->element[1]) {
-            if (is_object($content)) {
+            if ($content instanceof \DOMNode) {
                 $fragment = $content;
             } else {
                 $fragment = $this->dom->createDocumentFragment();
@@ -75,7 +95,7 @@ class HTML
                 $start = strpos($str, '>') + 1;
                 return substr($str, $start, strrpos($str, '<') - $start);
             }
-            if (is_object($content)) {
+            if ($content instanceof \DOMNode) {
                 $fragment = $content;
             } else {
                 $fragment = $this->dom->createDocumentFragment();
@@ -93,7 +113,7 @@ class HTML
     public function prepend($content)
     {
         if ($this->element[1]) {
-            if (is_object($content)) {
+            if ($content instanceof \DOMNode) {
                 $fragment = $content;
             } else {
                 $fragment = $this->dom->createDocumentFragment();
@@ -109,7 +129,7 @@ class HTML
     public function append($content)
     {
         if ($this->element[1]) {
-            if (is_object($content)) {
+            if ($content instanceof \DOMNode) {
                 $fragment = $content;
             } else {
                 $fragment = $this->dom->createDocumentFragment();
@@ -125,7 +145,7 @@ class HTML
     public function before($content)
     {
         if ($this->element[1]) {
-            if (is_object($content)) {
+            if ($content instanceof \DOMNode) {
                 $fragment = $content;
             } else {
                 $fragment = $this->dom->createDocumentFragment();
@@ -141,7 +161,7 @@ class HTML
     public function after($content)
     {
         if ($this->element[1]) {
-            if (is_object($content)) {
+            if ($content instanceof \DOMNode) {
                 $fragment = $content;
             } else {
                 $fragment = $this->dom->createDocumentFragment();
@@ -344,7 +364,7 @@ class HTML
 
     public function get($element = null) // outer
     {
-        is_object($element) or $element = $this->element[1];
+        $element instanceof \DOMElement or $element = $this->element[1];
         return version_compare(PHP_VERSION, '5.3.6', '>=') ? $this->dom->saveHTML($element) : $this->dom->saveXML($element);
     }
 }
