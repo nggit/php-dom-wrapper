@@ -14,10 +14,10 @@ class HTML
     {
         $this->dom = new \DOMDocument();
         libxml_use_internal_errors(true);
-        if (file_exists($str)) {
+        if (file_exists(substr($str, 0, 255))) {
             $this->dom->loadHTMLFile($str);
         } else {
-            $this->dom->loadHTML($str);
+            $this->dom->loadHTML($str . "\n");
         }
         libxml_clear_errors();
         $this->xpath = new \DOMXPath($this->dom);
@@ -365,6 +365,8 @@ class HTML
     public function get($element = null) // outer
     {
         $element instanceof \DOMElement or $element = $this->element[1];
-        return version_compare(PHP_VERSION, '5.3.6', '>=') ? $this->dom->saveHTML($element) : $this->dom->saveXML($element);
+        if ($element) {
+            return version_compare(PHP_VERSION, '5.3.6', '>=') ? $this->dom->saveHTML($element) : $this->dom->saveXML($element);
+        }
     }
 }
