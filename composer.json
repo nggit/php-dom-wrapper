@@ -1,13 +1,13 @@
 {
-    "name": "nggit/php-dom-template",
-    "description": "HTML Templating and Extraction Using PHP DOM",
-    "homepage": "https://github.com/nggit/php-dom-template",
+    "name": "nggit/php-dom-wrapper",
+    "description": "A Simple, jQuery-like PHP DOM Wrapper",
+    "homepage": "https://github.com/nggit/php-dom-wrapper",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
             "name": "nggit",
-            "email": "test@anggit.com"
+            "email": "contact@anggit.com"
         }
     ],
     "minimum-stability": "dev",
@@ -15,6 +15,6 @@
         "php": ">=5.3.0"
     },
     "autoload": {
-        "psr-4": {"Nggit\\PHPDOMTemplate\\": "src/"}
+        "psr-4": {"Nggit\\PHPDOMWrapper\\": "src/"}
     }
 }

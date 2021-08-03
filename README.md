@@ -1,11 +1,11 @@
 <!-- <?php /* -->
-# PHP DOM Template
+# PHP DOM Wrapper
 **Tip:** Rename this `md` file to `php` to test it on your web server.
 <!-- */ ?> -->
 
     <?php
 
-    require 'src/HTML.php';
+    require 'src/Dom.php';
 
     $str = '<!DOCTYPE html>
                 <head>
@@ -39,7 +39,7 @@
 
 ### Load the HTML
     // This can be an HTML string or a local path of the HTML file, e.g. /path/template.html
-    $html = new Nggit\PHPDOMTemplate\HTML($str);
+    $html = new Nggit\PHPDOMWrapper\Dom($str);
 
     switch ($_SERVER['QUERY_STRING']) {
         default:
@@ -119,7 +119,7 @@
 ## Advanced
             // Find all p (Extraction)
             // In Templating, this kind of method will also work
-            foreach ($html->find("//p", null) as $p) {
+            foreach ($html->query("//p") as $p) {
                 echo $html->element($p)->html() . '<br />';
             }
             echo '$class contains: ' . $class . '<br />
