@@ -94,7 +94,7 @@ class Dom
                     return $this->getElementsByClassName(ltrim($item, '.'));
                 }
                 if (!isset($this->node[$item][$n])) {
-                    if (($elements = $this->getElementsByClassName(ltrim($item, '#'))) && $elements->length > $n) {
+                    if (($elements = $this->getElementsByClassName(ltrim($item, '.'))) && $elements->length > $n) {
                         $this->node[$item][$n] = $elements->item($n);
                     }
                 }
